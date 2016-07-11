@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="po.friend" table="friend" catalog="db_sportsys">
+		<id name="username" type="string">
+			<column name="username" length="20" />
+		</id>
+		<property name="fri_username" type="string">
+			<column name="fri_username" length="20" />
+		</property>
+	</class>
+</hibernate-mapping>

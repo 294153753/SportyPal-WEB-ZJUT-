@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="po.add_friend" table="add_friend" catalog="db_sportsys">
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="increment" />
+		</id>
+		<property name="username" type="string">
+			<column name="username" length="20" />
+		</property>
+		<property name="fri_username" type="string">
+			<column name="fri_username" length="20" />
+		</property>
+		<property name="rst" type="string">
+			<column name="rst" length="20" />
+		</property>
+	</class>
+</hibernate-mapping>

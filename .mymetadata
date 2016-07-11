@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="sportsMovement"
+  id="myeclipse.1459907540741"
+  context-root="/sportsMovement"
+  j2ee-spec="5.0"
+  archive="sportsMovement.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

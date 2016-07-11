@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+		http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/db_sportsys" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+			</props>
+		</property>
+		<property name="mappingResources">
+			<list>
+				<value>po/Account.hbm.xml</value>
+				<value>po/account_detail.hbm.xml</value>
+				<value>po/friend.hbm.xml</value>
+				<value>po/add_friend.hbm.xml</value>
+				<value>po/comment.hbm.xml</value>
+				<value>po/content.hbm.xml</value>
+				<value>po/content_statistics.hbm.xml</value>
+				<value>po/distance.hbm.xml</value>
+				<value>po/gps.hbm.xml</value>
+				<value>po/likes.hbm.xml</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="baseDAO" class="dao.BaseHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+
+	<bean id="accountDAO" class="dao.accountDAO" parent="baseDAO" />
+	<bean id="trendDAO" class="dao.trendDAO" parent="baseDAO" />
+
+
+	<bean id="accountService" class="service.accountService">
+		<property name="accountDAO" ref="accountDAO" />
+	</bean>
+	<bean id="trendService" class="service.trendService">
+		<property name="trendDAO" ref="trendDAO" />
+	</bean>
+
+
+	<bean id="accountAction" class="action.accountAction" scope="prototype">
+		<property name="trendService" ref="trendService" />
+		<property name="accountService" ref="accountService" />
+	</bean>
+	<bean id="trendAction" class="action.trendAction" scope="prototype">
+		<property name="trendService" ref="trendService" />
+		<property name="accountService" ref="accountService" />
+	</bean>
+
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory">
+			<ref bean="sessionFactory" />
+		</property>
+	</bean>
+	<!-- 定义增强处理拦截方法 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="add*" propagation="REQUIRED" />
+			<tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="REQUIRED" />
+			<tx:method name="del*" propagation="REQUIRED" />
+			<tx:method name="*" read-only="true" />
+		</tx:attributes>
+	</tx:advice>
+	<!-- 定义事务拦截切面 -->
+	<aop:config>
+		<aop:pointcut id="allServiceMethod" expression="execution(* service.*.*(..))" />
+		<aop:advisor pointcut-ref="allServiceMethod" advice-ref="txAdvice" />
+	</aop:config>
+</beans>

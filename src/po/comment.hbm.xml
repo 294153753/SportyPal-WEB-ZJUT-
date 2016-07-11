@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="po.comment" table="comment" catalog="db_sportsys">
+		<id name="id" type="int">
+			<column name="id" />
+			<generator class="increment" />
+		</id>
+		<many-to-one name="account_detail" column="username"
+			class="po.account_detail" lazy="false" />
+		<property name="time" type="string">
+			<column name="time" length="20" />
+		</property>
+		<property name="content_id" type="int">
+			<column name="content_id" />
+		</property>
+		<property name="comment" type="string">
+			<column name="comment" length="1000" />
+		</property>
+		<property name="parent_id" type="int">
+			<column name="parent_id" />
+		</property>
+		<property name="symbol" type="int">
+			<column name="symbol" />
+		</property>
+	</class>
+</hibernate-mapping>

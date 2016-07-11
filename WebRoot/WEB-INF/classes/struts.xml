@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="strutsBean" extends="json-default" namespace="/">
+		<action name="login" class="action.accountAction" method="login">
+			<result name="success" type="chain">recommend</result>
+			<result name="fail">login.jsp</result>
+		</action>
+		<action name="logout" class="action.accountAction" method="logout">
+			<result name="success">login.jsp</result>
+		</action>
+		<action name="register" class="action.accountAction" method="register">
+			<result name="success">login.jsp</result>
+			<result name="fail">register.jsp</result>
+		</action>
+		<action name="checkExist" class="action.accountAction" method="checkExist">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="showInfo" class="action.accountAction" method="showInfo">
+			<result name="success">myAccount.jsp</result>
+		</action>
+		<action name="changePassword" class="action.accountAction"
+			method="changePassword">
+			<result name="success">login.jsp</result>
+			<result name="fail" type="chain">showInfo</result>
+		</action>
+		<action name="changeDetail" class="action.accountAction"
+			method="changeDetail">
+			<result name="success" type="chain">showInfo</result>
+		</action>
+		<action name="showFriends" class="action.accountAction" method="showFriends">
+			<result name="success">friends.jsp</result>
+		</action>
+		<action name="deleteFriend" class="action.accountAction"
+			method="deleteFriend">
+			<result name="success" type="chain">showFriends</result>
+		</action>
+		<action name="searchFriend" class="action.accountAction"
+			method="search">
+			<result name="success">searchRST.jsp</result>
+			<result name="fail">searchRST.jsp</result>
+		</action>
+		<action name="addfriend" class="action.accountAction" method="addFriend">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="recommend" class="action.accountAction" method="recommend">
+			<result name="success" type="chain">showTrend</result>
+		</action>
+		<action name="agreeAddFriend" class="action.accountAction"
+			method="agreeAddFriend">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="refuseAddFriend" class="action.accountAction"
+			method="refuseAddFriend">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="deleteRst" class="action.accountAction" method="deleteRst">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="accountInfo" class="action.accountAction" method="accountInfo">
+			<result name="success">accountInfo.jsp</result>
+		</action>
+		<action name="release" class="action.trendAction" method="release">
+			<result name="success" type="chain">recommend</result>
+		</action>
+		<action name="showTrend" class="action.trendAction" method="showTrend">
+			<result name="success">myindex.jsp</result>
+		</action>
+		<action name="checkLikes" class="action.trendAction" method="checkLikes">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="insertLikes" class="action.trendAction" method="insertLikes">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="deleteLikes" class="action.trendAction" method="deleteLikes">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="forward" class="action.trendAction" method="forward">
+			<result name="success" type="chain">recommend</result>
+		</action>
+		<action name="comment" class="action.trendAction" method="comment">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+		<action name="showSptArts" class="action.trendAction" method="showSptArts">
+			<result name="success">chart.jsp</result>
+		</action>
+		<action name="statistic" class="action.trendAction" method="statistic">
+			<result  type="json">
+				<param name="root">jsonMessage</param>
+			</result>
+		</action>
+		<action name="showrecomment" class="action.trendAction" method="reComment">
+			<result  type="json">
+				<param name="root">jsonMessage</param>
+			</result>
+		</action>
+		<action name="recomment" class="action.trendAction" method="rrecomment">
+			<result name="jsonmsg" type="json">
+				<param name="root">message</param>
+			</result>
+		</action>
+	</package>
+</struts>    
